@@ -1,0 +1,29 @@
+name: arc-breast
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - ipykernel
+  - h5py
+  - anndata
+  - statsmodels
+  - pip:
+      - scanpy>=1.10.0
+      - harmonypy>=0.0.9
+      - leidenalg
+      - python-igraph
+      - scrublet
+      - decoupler
+      - pydeseq2
+      - adjustText
+      - GEOparse
+      - openpyxl

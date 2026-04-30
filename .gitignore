@@ -1,0 +1,50 @@
+# Data (too large for GitHub; download scripts are provided)
+data/raw/
+data/processed/
+*.h5ad
+*.h5
+*.mtx
+*.mtx.gz
+*.tar.gz
+
+# Figures and results (keep small ones via force-add; exclude large by default)
+# figures included in repo
+!figures/*.png
+results/*.csv
+results/*.xlsx
+!results/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# IDE
+.vscode/
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+.pybiomart.sqlite
