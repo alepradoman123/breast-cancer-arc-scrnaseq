@@ -7,7 +7,7 @@ molecular subtypes (ER+, HER2+, TNBC) and cell populations.
 ## Overview
 Intratumoral heterogeneity is increasingly understood to arise from non-genetic mechanisms that shape transcriptional cell states. While much of this work has focused on intracellular regulatory programs, less is known about whether specialized mechanisms of intercellular communication contribute to how these states are maintained or interact within tumors.
 
-This project explores the expression of ARC (Activity-Regulated Cytoskeleton-associated protein)—a gene known to mediate RNA transfer via virus-like capsid formation in neuronal systems—in single-cell RNA-seq datasets from breast cancer patients. The goal is to investigate whether ARC is expressed in tumor versus non-tumor cell populations and to explore its potential as a marker of cell-state–associated communication programs in cancer.
+This project explores the expression of ARC (Activity-Regulated Cytoskeleton-associated protein), a gene known to mediate RNA transfer via virus-like capsid formation in neuronal systems, in single-cell RNA-seq datasets from breast cancer patients. The goal is to investigate whether ARC is expressed in tumor versus non-tumor cell populations and to explore its potential as a marker of cell-state–associated communication programs in cancer.
 
 ## Biological question
 
@@ -182,9 +182,10 @@ across all subtypes:
 | HER2+   | 1.29 log1p(CPM)          | 4.54 log1p(CPM)          | +3.24      |
 | TNBC    | 0.76 log1p(CPM)          | 2.21 log1p(CPM)          | +1.45      |
 
-Overall (all subtypes): Normal median 3.02 vs Cancer median 1.34, p=0.0615 (trend,
-not significant; n=10 Normal vs n=20 Cancer patients). TNBC showed the largest
-Normal > Cancer gap, consistent with greater de-differentiation in TNBC tumors.
+Overall (all subtypes): Normal Epithelial pseudo-bulk median 3.02 vs Cancer Epithelial 
+median 1.34 log1p(CPM), p=0.0615 (trend, not significant). 
+Comparisons based on patients with sufficient cells for pseudo-bulk: 10 patients contributed Normal Epithelial values and 20 patients contributed Cancer Epithelial values (same 26-patient cohort; not all patients had ≥10 Normal Epithelial cells after subsampling). 
+TNBC showed the largest Normal > Cancer gap, suggesting ARC loss is most pronounced in the most de-differentiated subtype.
 
 ### Statistical testing (pseudo-bulk Wilcoxon)
 
