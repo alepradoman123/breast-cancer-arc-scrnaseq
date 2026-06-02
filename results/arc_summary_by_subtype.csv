@@ -1,0 +1,4 @@
+subtype,n_cells,n_expressing,pct_expressing,mean_expr,median_expr,mean_expr_pos
+ER+,38062.0,2775.0,7.291,0.1,0.0,1.369
+HER2+,19289.0,1157.0,5.998,0.077,0.0,1.275
+TNBC,42444.0,1187.0,2.797,0.031,0.0,1.094

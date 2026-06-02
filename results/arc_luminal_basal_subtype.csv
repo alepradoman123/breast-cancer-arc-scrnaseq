@@ -1,0 +1,13 @@
+subtype,epi_subtype,celltype_major,n_cells,pct_expressing,mean_expr,mean_expr_pos
+ER+,Basal-like,Cancer Epithelial,84,5.95,0.0885,1.4866
+ER+,Basal-like,Normal Epithelial,1120,36.96,0.5625,1.5217
+ER+,Luminal-like,Cancer Epithelial,11694,7.88,0.1267,1.6072
+ER+,Luminal-like,Normal Epithelial,1310,9.69,0.0621,0.6407
+HER2+,Basal-like,Cancer Epithelial,33,9.09,0.0483,0.5316
+HER2+,Basal-like,Normal Epithelial,395,26.84,0.393,1.4643
+HER2+,Luminal-like,Cancer Epithelial,1734,3.23,0.0149,0.4615
+HER2+,Luminal-like,Normal Epithelial,572,16.61,0.2234,1.345
+TNBC,Basal-like,Cancer Epithelial,2046,15.3,0.1027,0.6712
+TNBC,Basal-like,Normal Epithelial,187,46.52,0.7345,1.5788
+TNBC,Luminal-like,Cancer Epithelial,8757,0.75,0.0056,0.742
+TNBC,Luminal-like,Normal Epithelial,768,16.93,0.1597,0.9437
