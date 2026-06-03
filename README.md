@@ -264,7 +264,7 @@ MIT — see `LICENSE`.
 
 ---
 
-## Full-Dataset Results (99,795 cells, DEV_MODE=False, Kaggle run June 2025)
+# Full-Dataset Results (99,795 cells, DEV_MODE=False, Kaggle run June 2026)
 
 > Results below supersede the exploratory subset (DEV_MODE=True, ~36,000 cells).
 > All analyses use pseudo-bulk aggregation (per patient × cell type, minimum 10
