@@ -261,3 +261,149 @@ MIT — see `LICENSE`.
 
 ### Normal vs Cancer Epithelial ARC
 ![Normal vs Cancer Epithelial comparison](figures/arc_normal_vs_cancer_epithelial_clean.png)
+
+---
+
+## Full-Dataset Results (99,795 cells, DEV_MODE=False, Kaggle run June 2025)
+
+> Results below supersede the exploratory subset (DEV_MODE=True, ~36,000 cells).
+> All analyses use pseudo-bulk aggregation (per patient × cell type, minimum 10
+> cells per group) with Mann-Whitney U / Wilcoxon rank-sum tests. Nothing survived
+> FDR correction at this cohort size — effect sizes are the primary reported quantity.
+
+### ARC expression: all epithelial cells, Normal vs Cancer (pooled subtypes)
+
+Across all epithelial cells pooled (basal-like + luminal-like, all subtypes),
+Normal Epithelial shows higher ARC than Cancer Epithelial but the difference
+does not reach significance at this patient count:
+
+| | Value |
+|---|---|
+| n normal patients | 12 |
+| n cancer patients | 20 |
+| Median normal | 2.98 log₁p(CPM) |
+| Median cancer | 1.32 log₁p(CPM) |
+| Median difference | 1.65 log₁p(CPM) |
+| p-value (Mann-Whitney U) | 0.167 |
+
+The subset run gave p=0.062 for the same comparison — the full dataset is more
+conservative because pseudo-bulk values are more precise with more cells per
+patient, reducing noise-driven inflation of the test statistic.
+
+See: `figures/arc_all_epithelial_normal_vs_cancer_violin_full.png`
+Data: `results/arc_all_epithelial_normal_vs_cancer_full.csv`
+
+### ARC expression: Normal vs Cancer Epithelial per subtype
+
+Stratifying by subtype, the Normal > Cancer direction holds across all three
+subtypes but none reach significance — expected given n=2–9 patients per group:
+
+| Subtype | n normal | n cancer | Median normal | Median cancer | Diff | p-value | FDR |
+|---|---|---|---|---|---|---|---|
+| ER+ | 5 | 9 | 3.17 | 2.41 | 0.76 | 0.797 | 0.826 |
+| HER2+ | 2 | 3 | 4.45 | 1.28 | 3.17 | 0.200 | 0.600 |
+| TNBC | 5 | 8 | 1.68 | 0.80 | 0.88 | 0.826 | 0.826 |
+
+HER2+ shows the largest numerical difference (3.17) but rests on n=2 normal
+vs n=3 cancer patients — uninterpretable statistically. TNBC shows the largest
+difference among adequately sampled subtypes (0.88), consistent with ARC loss
+being most pronounced in the most aggressive subtype.
+
+Data: `results/arc_normal_vs_cancer_epithelial_full.csv`
+
+### Basal-like epithelial cells: Normal vs Cancer (key finding)
+
+Restricting to basal-like epithelial cells isolates the highest-ARC normal
+population and holds lineage constant across the malignancy comparison.
+Basal-like assignment was derived from per-cell epithelial scoring
+(Epithelial_basal_score > Epithelial_luminal_score).
+
+| | Value |
+|---|---|
+| n normal patients | 8 |
+| n cancer patients | 9 |
+| Median normal basal | 3.98 log₁p(CPM) |
+| Median cancer basal | 0.51 log₁p(CPM) |
+| Median difference | 3.47 log₁p(CPM) |
+| p-value (Mann-Whitney U) | **0.0098** |
+
+This is the only comparison in the analysis reaching nominal significance
+without FDR adjustment (single pre-specified comparison). The effect size
+(3.47 log₁p CPM) is more than double the all-epithelial pooled result (1.65),
+confirming that restricting to the basal compartment sharpens the signal.
+
+**Caveat:** The cancer arm is TNBC-dominated (7/9 patients). ER+ and HER2+
+contribute only 1 patient each to the cancer basal arm because basal-like
+cancer cells are rare in luminal subtypes by definition. The normal arm is
+more balanced (3 ER+, 2 HER2+, 3 TNBC). This result primarily reflects
+TNBC basal cancer vs normal basal epithelium across the cohort.
+
+See: `figures/arc_basal_normal_vs_cancer_violin_full.png`
+Data: `results/arc_basal_normal_vs_cancer_full.csv`,
+`results/arc_basal_contribution_table_full.csv`
+
+### ARC vs EV secretory machinery genes (selectivity analysis)
+
+To test whether ARC loss in cancer epithelium reflects selective downregulation
+or a general collapse of EV biogenesis, we compared ARC's Normal→Cancer
+expression difference against 8 high-confidence EV secretory machinery genes
+using the same pseudo-bulk framework across all epithelial cells:
+
+| Gene | Median diff (Normal−Cancer) | p-value | FDR |
+|---|---|---|---|
+| **ARC** | **1.65** | 0.167 | 0.376 |
+| CD81 | 0.61 | 0.019 | 0.167 |
+| RAB27B | 0.53 | 0.049 | 0.222 |
+| RAB27A | 0.49 | 0.077 | 0.230 |
+| CD9 | 0.35 | 0.712 | 0.830 |
+| TSG101 | 0.06 | 0.683 | 0.830 |
+| CD63 | 0.02 | 0.770 | 0.830 |
+| PDCD6IP | 0.01 | 0.521 | 0.830 |
+| SDCBP | -0.05 | 0.830 | 0.830 |
+
+ARC shows the largest Normal→Cancer effect size (1.65 log₁p CPM), more than
+2.5× the next highest gene (CD81, 0.61). Core ESCRT machinery genes (TSG101,
+PDCD6IP, CD63) cluster near zero — no meaningful change between normal and
+cancer epithelium. Nothing survived FDR correction across the 9 genes.
+
+**Interpretation:** The EV secretory machinery appears intact in cancer
+epithelial cells while ARC is specifically reduced. If ARC's neuronal
+EV-capsid mechanism (Pastuzyn et al. 2018, Ashley et al. 2018) operates in
+mammary epithelium — which remains to be demonstrated — this transcriptional
+pattern would represent the upstream condition for reduced ARC-laden EV output
+by tumor cells. This is a hypothesis-generating observation. The scRNA-seq
+data cannot directly measure EV secretion, protein levels, or intercellular
+communication.
+
+See: `figures/arc_ev_machinery_forest_plot_full.png`
+Data: `results/arc_ev_machinery_panel_full.csv`
+
+### Statistical approach and limitations
+
+- Pseudo-bulk (per patient × cell type, min 10 cells) used throughout.
+  Per-cell tests not reported as primary results (Squair et al. 2021).
+- 26 patients, 3–11 per subtype per cell type. Low power is the primary
+  limitation — effect sizes reported as primary quantity, p-values secondary.
+- Nothing survived FDR correction in any multi-gene or multi-subtype comparison.
+- The basal Normal vs Cancer comparison (p=0.0098) is the single pre-specified
+  comparison that reached nominal significance; reported without FDR adjustment.
+- ARC's role as an EV cargo gene in epithelial cells is unestablished.
+  All interpretation connecting ARC expression to EV-mediated communication
+  is explicitly framed as hypothesis-generating.
+- Full-dataset run on Kaggle Notebooks (30 GB RAM), DEV_MODE=False.
+  Kaggle environment config override in src/config.py.
+
+### Next steps
+
+- Formal interaction test (gene × celltype) using DESeq2 or edgeR to
+  statistically compare ARC's Normal→Cancer fold-change against EV machinery genes
+- Protein-level validation (IHC or proteomics) to confirm ARC transcript
+  loss translates to protein loss
+- EV isolation and proteomics from matched normal vs tumor breast epithelial
+  cells to directly test ARC packaging into EVs and whether it is reduced in cancer
+- Expanded cohort to increase power for subtype-stratified comparisons
+
+---
+
+*Subset results (DEV_MODE=True, ~36,000 cells) preserved above for reference.
+Full-dataset results supersede them for all primary analyses.*
