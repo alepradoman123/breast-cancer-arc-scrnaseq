@@ -1,0 +1,7 @@
+celltype_major,subtype,n_patients
+Cancer Epithelial,ER+,1
+Cancer Epithelial,HER2+,1
+Cancer Epithelial,TNBC,7
+Normal Epithelial,ER+,3
+Normal Epithelial,HER2+,2
+Normal Epithelial,TNBC,3
