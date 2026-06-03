@@ -1,0 +1,2 @@
+n_normal_patients,n_cancer_patients,median_normal,median_cancer,median_diff_normal_minus_cancer,u_stat,p_value
+12,20,2.976216742179046,1.3215976087223886,1.6546191334566576,156.0,0.1669832839108838
